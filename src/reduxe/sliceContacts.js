@@ -23,6 +23,8 @@ const contactsSlice = createSlice({
     error: null,
   },
   reducers: {
+    // Я розумію що це не варто тримати в глобальному стейті, але хотілося
+    // поексперементувати із  міксом стейтів
     editContact(state, action) {
       for (const contact of state.items) {
         if (contact.id === action.payload) {
