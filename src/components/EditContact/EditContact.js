@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Label } from './EditContact.styled';
 import { editContact } from 'reduxe/sliceContacts';
-import { getContacts } from 'reduxe/selectors';
+import { selectContacts } from 'reduxe/selectors';
 import { changeContacts } from 'reduxe/operation';
 
 const findContactByNameAndId = (contacts, userName, id) => {
@@ -14,7 +14,7 @@ const findContactByNameAndId = (contacts, userName, id) => {
 };
 
 const EditContact = ({ contact }) => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatcher = useDispatch();
   const [newName, setNewName] = useState(contact.name);
   const [newNumber, setNewNumber] = useState(contact.phone);
@@ -70,7 +70,7 @@ const EditContact = ({ contact }) => {
         New number:
         <input
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

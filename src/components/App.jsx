@@ -6,14 +6,14 @@ import Spinner from './Spinner/Spinner';
 
 import { TitlePhonebook, TitleContacts, Container } from './App.style';
 
-import { getContacts, getError, getIsLoading } from 'reduxe/selectors';
+import { selectContacts, selectError, selectIsLoading } from 'reduxe/selectors';
 import { fetchAllContacts } from 'reduxe/operation';
 import { useEffect } from 'react';
 
 const App = () => {
-  const contacts = useSelector(getContacts);
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
 
