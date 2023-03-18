@@ -4,12 +4,12 @@ import ListContacts from 'components/ListContacts/ListContacts';
 import Filter from 'components/Filter/Filter';
 import Spinner from 'components/Spinner/Spinner';
 
-import { TitlePhonebook, TitleContacts, Container } from './Home.styled';
+import { TitlePhonebook, TitleContacts, Container } from './Contacts.styled';
 import { selectContacts, selectError, selectIsLoading } from 'reduxe/selectors';
 import { fetchAllContacts } from 'reduxe/operation';
 import { useEffect } from 'react';
 
-const Home = () => {
+const Contacts = () => {
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -25,7 +25,7 @@ const Home = () => {
   // }, [error]);
 
   return (
-    <Container className="App">
+    <Container>
       <TitlePhonebook>Phonebook</TitlePhonebook>
       <AddContact />
 
@@ -42,4 +42,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Contacts;

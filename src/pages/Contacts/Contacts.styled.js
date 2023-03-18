@@ -9,7 +9,5 @@ export const TitleContacts = styled.h2`
 `;
 
 export const Container = styled.div`
-  padding-top: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
+  margin-top: 20px;
 `;
