@@ -1,45 +1,21 @@
-import { useDispatch, useSelector } from 'react-redux';
-import AddContact from './AddContact/AddContact';
-import ListContacts from './ListContacts/ListContacts';
-import Filter from './Filter/Filter';
-import Spinner from './Spinner/Spinner';
+import { lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import MainLayout from 'layout/MainLayout/MainLayout';
 
-import { TitlePhonebook, TitleContacts, Container } from './App.style';
-
-import { selectContacts, selectError, selectIsLoading } from 'reduxe/selectors';
-import { fetchAllContacts } from 'reduxe/operation';
-import { useEffect } from 'react';
+const Home = lazy(() => import('pages/Home/Home'));
+const Login = lazy(() => import('pages/Login/Login'));
+const Register = lazy(() => import('pages/Register/Register'));
 
 const App = () => {
-  const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllContacts());
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (!error) alert('ERROR services');
-  // }, [error]);
-
   return (
-    <Container className="App">
-      <TitlePhonebook>Phonebook</TitlePhonebook>
-      <AddContact />
-
-      {contacts.length > 0 && (
-        <>
-          <Filter />
-          <TitleContacts>Contacts</TitleContacts>
-          <ListContacts />
-        </>
-      )}
-
-      {isLoading && !error && <Spinner />}
-    </Container>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 
