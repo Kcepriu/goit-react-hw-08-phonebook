@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, Label } from './EditContact.styled';
-import { editContact } from 'reduxe/sliceContacts';
-import { selectContacts } from 'reduxe/selectors';
-import { changeContacts } from 'reduxe/operation';
+import { changeContacts } from 'reduxe/contacts/operation';
+import useContacts from 'hooks/useContacts';
+import useNotife from 'hooks/useNotife';
 
 const findContactByNameAndId = (contacts, userName, id) => {
   const textFilter = userName.toUpperCase();
@@ -13,27 +13,31 @@ const findContactByNameAndId = (contacts, userName, id) => {
   );
 };
 
-const EditContact = ({ contact }) => {
-  const contacts = useSelector(selectContacts);
+const EditContact = ({ contact, handlerEditionContact }) => {
+  const { contacts } = useContacts();
+  const { showFailure } = useNotife();
+
   const dispatcher = useDispatch();
+
   const [newName, setNewName] = useState(contact.name);
-  const [newNumber, setNewNumber] = useState(contact.phone);
+  const [newNumber, setNewNumber] = useState(contact.number);
 
   const handlerSave = event => {
     event.preventDefault();
 
     if (findContactByNameAndId(contacts, newName, contact.id)) {
-      alert(`${newName} is already in contacts`);
+      showFailure(`${newName} is already in contacts`);
       return;
     }
 
     // dispatcher(editContact(contact.id));
+    handlerEditionContact(false);
     // TODO save to API
+
     dispatcher(
       changeContacts({
         id: contact.id,
-        name: newName,
-        phone: newNumber,
+        contact: { name: newName, number: newNumber },
       })
     );
   };
@@ -44,10 +48,6 @@ const EditContact = ({ contact }) => {
 
   const onChangeNumber = event => {
     setNewNumber(event.target.value);
-  };
-
-  const handlerCancel = () => {
-    dispatcher(editContact(contact.id));
   };
 
   return (
@@ -79,7 +79,7 @@ const EditContact = ({ contact }) => {
         />
       </Label>
       <button type="submit">Save</button>
-      <button type="button" onClick={handlerCancel}>
+      <button type="button" onClick={() => handlerEditionContact(false)}>
         Cancel
       </button>
     </Form>
@@ -93,6 +93,7 @@ EditContact.propType = {
     phone: PropTypes.string.isRequired,
     edit: PropTypes.bool,
   }).isRequired,
+  handlerEditionContact: PropTypes.func.isRequired,
 };
 
 export default EditContact;

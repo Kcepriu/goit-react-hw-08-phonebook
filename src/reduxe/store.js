@@ -9,7 +9,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { contactsReducer } from './sliceContacts';
+import { contactsReducer } from './contacts/sliceContacts';
 import { filterReducer } from './sliceFilter';
 import { authReducer } from './auth/sliceAuth';
 

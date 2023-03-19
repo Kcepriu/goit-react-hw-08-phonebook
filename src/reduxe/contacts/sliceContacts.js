@@ -22,18 +22,6 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {
-    // Я розумію що це не варто тримати в глобальному стейті, але хотілося
-    // поексперементувати із  міксом стейтів
-    editContact(state, action) {
-      for (const contact of state.items) {
-        if (contact.id === action.payload) {
-          contact.edit = !contact.edit;
-          break;
-        }
-      }
-    },
-  },
   extraReducers: {
     // * Fetch contacts
     [fetchAllContacts.pending]: handlePending,
@@ -76,5 +64,4 @@ const contactsSlice = createSlice({
   },
 });
 
-export const { editContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

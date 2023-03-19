@@ -1,18 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AddContact from 'components/AddContact/AddContact';
 import ListContacts from 'components/ListContacts/ListContacts';
 import Filter from 'components/Filter/Filter';
 import Spinner from 'components/Spinner/Spinner';
 
 import { TitlePhonebook, TitleContacts, Container } from './Contacts.styled';
-import { selectContacts, selectError, selectIsLoading } from 'reduxe/selectors';
-import { fetchAllContacts } from 'reduxe/operation';
+import { fetchAllContacts } from 'reduxe/contacts/operation';
 import { useEffect } from 'react';
+import useContacts from 'hooks/useContacts';
 
 const Contacts = () => {
-  const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { contacts, isLoading, error } = useContacts();
 
   const dispatch = useDispatch();
 

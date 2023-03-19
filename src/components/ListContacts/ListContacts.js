@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
 
-import { selectVisibleContacts } from 'reduxe/selectors';
+import { selectVisibleContacts } from 'reduxe/contacts/selectors';
 
 import { ContactList } from './ListContacts.styled';
-import Contact from 'components/Contact/Contact';
-import EditContact from 'components/EditContact/EditContact';
+import ContactProxy from 'components/ContactProxy/ContactProxy';
 
 const ListContacts = () => {
   const visibleContacts = useSelector(selectVisibleContacts);
@@ -12,11 +11,7 @@ const ListContacts = () => {
   return (
     <ContactList>
       {visibleContacts.map(contact => {
-        if (!contact.edit) {
-          return <Contact key={contact.id} contact={contact} />;
-        } else {
-          return <EditContact key={contact.id} contact={contact} />;
-        }
+        return <ContactProxy key={contact.id} contact={contact} />;
       })}
     </ContactList>
   );

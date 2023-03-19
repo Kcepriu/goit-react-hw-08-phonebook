@@ -5,9 +5,9 @@ import useAuth from 'hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'reduxe/auth/operation';
 import Spinner from './Spinner/Spinner';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
+import useNotife from 'hooks/useNotife';
 
 const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 const Login = lazy(() => import('pages/Login/Login'));
@@ -15,13 +15,15 @@ const Register = lazy(() => import('pages/Register/Register'));
 
 const App = () => {
   const dispatch = useDispatch();
+  const { showFailure } = useNotife();
 
   const { isRefresing, isError, textError } = useAuth();
+
   useEffect(() => {
     if (isError) {
-      Notify.failure(textError, { timeout: 1000 });
+      showFailure(textError);
     }
-  }, [isError, textError]);
+  }, [isError, textError, showFailure]);
 
   useEffect(() => {
     dispatch(refreshUser());

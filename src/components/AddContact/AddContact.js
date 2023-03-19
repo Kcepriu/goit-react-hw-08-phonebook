@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'reduxe/selectors';
-import { addContacts } from 'reduxe/operation';
+import { useDispatch } from 'react-redux';
+import { addContacts } from 'reduxe/contacts/operation';
 import { Form, Label, Button } from './AddContact.styled';
+import useContacts from 'hooks/useContacts';
+import useNotife from 'hooks/useNotife';
 
 const findContactByName = (contacts, userName) => {
   const textFilter = userName.toUpperCase();
@@ -9,12 +10,14 @@ const findContactByName = (contacts, userName) => {
 };
 
 const AddContact = () => {
-  const contacts = useSelector(selectContacts);
+  const { contacts } = useContacts();
+  const { showFailure } = useNotife();
+
   const dispatcher = useDispatch();
 
   const addnewContact = (contacts, newContact) => {
     if (findContactByName(contacts, newContact.name)) {
-      alert(`${newContact.name} is already in contacts`);
+      showFailure(`${newContact.name} is already in contacts`);
       return;
     }
 
@@ -29,7 +32,7 @@ const AddContact = () => {
 
     const newContact = {
       name: form.elements.name.value,
-      phone: form.elements.phone.value,
+      number: form.elements.phone.value,
     };
 
     addnewContact(contacts, newContact) && form.reset();

@@ -58,7 +58,9 @@ const authSlice = createSlice({
     // * register
     [register.pending](state, action) {
       state.isLoggedIn = false;
+      state.isError = false;
     },
+
     [register.rejected](state, action) {
       state.isLoggedIn = false;
       state.isError = true;
@@ -68,6 +70,7 @@ const authSlice = createSlice({
     // * logIn
     [logIn.pending](state, action) {
       state.isLoggedIn = false;
+      state.isError = false;
     },
     [logIn.rejected](state, action) {
       state.isLoggedIn = false;
@@ -78,6 +81,7 @@ const authSlice = createSlice({
     // * logOut
     [logOut.pending](state, action) {
       state.isLoggedIn = false;
+      state.isError = false;
     },
     [logOut.rejected](state, action) {
       state.isLoggedIn = false;
