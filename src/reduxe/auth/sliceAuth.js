@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import { logIn, logOut, register, refreshUser } from './operation';
 
 const initialstate = {
@@ -9,7 +12,8 @@ const initialstate = {
   isError: false,
   textError: '',
 };
-const authSkice = createSlice({
+
+const authSlice = createSlice({
   name: 'auth',
   initialState: initialstate,
   extraReducers: {
@@ -43,7 +47,13 @@ const authSkice = createSlice({
     },
 
     // * refreshUser
-    [refreshUser.fulfilled](state, action) {},
+    [refreshUser.fulfilled](state, action) {
+      state.isLoggedIn = true;
+      state.user = action.payload;
+      state.isError = false;
+      state.textError = '';
+      state.isRefresing = false;
+    },
 
     // * register
     [register.pending](state, action) {
@@ -78,13 +88,19 @@ const authSkice = createSlice({
     // * refreshUser
     [refreshUser.pending](state, action) {
       state.isLoggedIn = false;
+      state.isRefresing = true;
     },
     [refreshUser.rejected](state, action) {
       state.isLoggedIn = false;
-      state.isError = true;
-      state.textError = 'Помилка повторного входу';
+      state.isRefresing = false;
     },
   },
 });
 
-export const authReducer = authSkice.reducer;
+const persistConfig = {
+  key: 'tokenPhoneBook',
+  storage,
+  whitelist: ['token'],
+};
+
+export const authReducer = persistReducer(persistConfig, authSlice.reducer);
