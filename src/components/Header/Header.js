@@ -1,9 +1,8 @@
 import User from 'components/User/User';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'reduxe/auth/selectors';
-// import { WrapFooter } from './Footer.styled';
 
-//
+//MUI
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
