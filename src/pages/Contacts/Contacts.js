@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import AddContact from 'components/AddContact/AddContact';
 import ListContacts from 'components/ListContacts/ListContacts';
-import Filter from 'components/Filter/Filter';
+// import Filter from 'components/Filter/Filter';
 import Spinner from 'components/Spinner/Spinner';
 
 import { fetchAllContacts } from 'reduxe/contacts/operation';
@@ -35,7 +35,7 @@ const Contacts = () => {
         <>
           <Typography variant="h4">Contacts</Typography>
 
-          <Filter />
+          {/* <Filter /> */}
 
           <ListContacts />
         </>

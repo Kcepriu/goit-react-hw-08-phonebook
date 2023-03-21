@@ -5,6 +5,7 @@ import useNotife from 'hooks/useNotife';
 
 //MUI
 import { Button, Box, TextField } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 const findContactByName = (contacts, userName) => {
   const textFilter = userName.toUpperCase();
@@ -93,6 +94,7 @@ const AddContact = () => {
             type="submit"
             fullWidth
             variant="contained"
+            startIcon={<AddIcon />}
             sx={{
               mt: 3,
               mb: 2,

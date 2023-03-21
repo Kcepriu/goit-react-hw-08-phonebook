@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectVisibleContacts } from 'reduxe/contacts/selectors';
 import Contact from 'components/Contact/Contact';
 
+import FilterInTable from 'components/FilterInTable/FilterInTable';
 //MUI
 import {
   Table,
@@ -29,6 +30,7 @@ const ListContacts = () => {
           </TableRow>
         </TableHead>
         <TableBody>
+          <FilterInTable />
           {visibleContacts.map(contact => (
             <Contact key={contact.id} contact={contact} />
           ))}

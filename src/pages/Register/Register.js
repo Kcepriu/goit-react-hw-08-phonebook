@@ -60,7 +60,6 @@ const Register = () => {
             name="name"
             autoComplete="name"
             autoFocus
-            type={'email'}
           />
 
           <TextField
@@ -71,6 +70,7 @@ const Register = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
+            type={'email'}
           />
           <TextField
             margin="normal"

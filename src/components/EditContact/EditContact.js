@@ -5,6 +5,8 @@ import useNotife from 'hooks/useNotife';
 
 //MUI
 import { Button, Box, TextField, Dialog, DialogTitle } from '@mui/material';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const findContactByNameAndId = (contacts, userName, id) => {
   const textFilter = userName.toUpperCase();
@@ -90,12 +92,14 @@ const EditContact = ({ contact, isOpen, handlerClose }) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
+          gap={2}
           // sx={boxDefault}
         >
           <Button
             type="submit"
             fullWidth
             variant="contained"
+            startIcon={<SaveAltIcon />}
             sx={{
               mt: 3,
               mb: 2,
@@ -108,6 +112,7 @@ const EditContact = ({ contact, isOpen, handlerClose }) => {
             type="button"
             fullWidth
             variant="contained"
+            startIcon={<CancelIcon />}
             sx={{
               mt: 3,
               mb: 2,

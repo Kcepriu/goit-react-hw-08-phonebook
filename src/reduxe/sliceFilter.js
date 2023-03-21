@@ -2,6 +2,7 @@ const { createSlice } = require('@reduxjs/toolkit');
 
 const filterInitialState = {
   request: '',
+  number: '',
 };
 
 const filterSlice = createSlice({
@@ -11,8 +12,12 @@ const filterSlice = createSlice({
     changeFilter(state, action) {
       state.request = action.payload;
     },
+    changeFilterNumber(state, action) {
+      state.number = action.payload;
+    },
   },
 });
 
-export const { changeFilter } = filterSlice.actions;
+export const { changeFilter, changeFilterNumber } = filterSlice.actions;
+
 export const filterReducer = filterSlice.reducer;

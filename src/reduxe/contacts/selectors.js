@@ -5,13 +5,16 @@ export const selectIsLoading = state => state.contacts.isLoading;
 export const selectError = state => state.contacts.error;
 
 export const selectFilter = state => state.filter.request;
+export const selectFilterNumber = state => state.filter.number;
 
 export const selectVisibleContacts = createSelector(
-  [selectContacts, selectFilter],
+  [selectContacts, selectFilter, selectFilterNumber],
   // Функція перетворювач
-  (contacts, filter) => {
-    return contacts.filter(element =>
-      element.name.toUpperCase().includes(filter.toUpperCase())
+  (contacts, filter, filterNumber) => {
+    return contacts.filter(
+      element =>
+        element.name.toUpperCase().includes(filter.toUpperCase()) &&
+        element.number.includes(filterNumber)
     );
   }
 );
