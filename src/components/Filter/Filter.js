@@ -1,6 +1,6 @@
+import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from 'reduxe/sliceFilter';
-import { TitleFilter, InputFilter } from './Filter.styled';
 
 const Filter = () => {
   const dispatcher = useDispatch();
@@ -11,8 +11,19 @@ const Filter = () => {
 
   return (
     <>
-      <TitleFilter>Find contact by name</TitleFilter>
-      <InputFilter type="text" name="filter" onChange={handlerChangeFilter} />
+      <TextField
+        type="search"
+        name="filter"
+        variant="standard"
+        fullWidth
+        label="Find contact by name"
+        onChange={handlerChangeFilter}
+        sx={{
+          maxWidth: 320,
+          mt: '1rem',
+          mb: '1.5rem',
+        }}
+      />
     </>
   );
 };

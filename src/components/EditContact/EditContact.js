@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Form, Label } from './EditContact.styled';
 import { changeContacts } from 'reduxe/contacts/operation';
 import useContacts from 'hooks/useContacts';
 import useNotife from 'hooks/useNotife';
+
+//MUI
+import { Button, Box, TextField, Dialog, DialogTitle } from '@mui/material';
 
 const findContactByNameAndId = (contacts, userName, id) => {
   const textFilter = userName.toUpperCase();
@@ -13,87 +13,114 @@ const findContactByNameAndId = (contacts, userName, id) => {
   );
 };
 
-const EditContact = ({ contact, handlerEditionContact }) => {
+const EditContact = ({ contact, isOpen, handlerClose }) => {
   const { contacts } = useContacts();
   const { showFailure } = useNotife();
 
   const dispatcher = useDispatch();
 
-  const [newName, setNewName] = useState(contact.name);
-  const [newNumber, setNewNumber] = useState(contact.number);
-
-  const handlerSave = event => {
+  const handleSubmit = event => {
     event.preventDefault();
+    const form = event.target;
 
-    if (findContactByNameAndId(contacts, newName, contact.id)) {
-      showFailure(`${newName} is already in contacts`);
+    const newContact = {
+      name: form.elements.name.value,
+      number: form.elements.phone.value,
+    };
+
+    if (findContactByNameAndId(contacts, newContact.name, contact.id)) {
+      showFailure(`${newContact.name} is already in contacts`);
       return;
     }
-
-    // dispatcher(editContact(contact.id));
-    handlerEditionContact(false);
-    // TODO save to API
 
     dispatcher(
       changeContacts({
         id: contact.id,
-        contact: { name: newName, number: newNumber },
+        contact: newContact,
       })
     );
-  };
 
-  const onChangeName = event => {
-    setNewName(event.target.value);
-  };
-
-  const onChangeNumber = event => {
-    setNewNumber(event.target.value);
+    handlerClose();
   };
 
   return (
-    <Form onSubmit={handlerSave}>
-      <Label htmlFor="userName">
-        New name:
-        <input
-          type="text"
-          placeholder="Enter user name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+    <Dialog maxWidth="lg" open={isOpen} onClose={handlerClose} sx={{ p: 2 }}>
+      <DialogTitle variant="h4">Edit contact:</DialogTitle>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          mt: 1,
+          maxWidth: 480,
+          p: 2,
+        }}
+      >
+        <TextField
+          margin="normal"
           required
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          fullWidth
+          inputProps={{
+            inputMode: 'text',
+            pattern:
+              "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+          }}
+          id="name"
+          label="User name"
           name="name"
-          value={newName}
-          onChange={onChangeName}
+          autoComplete="name"
+          autoFocus
+          defaultValue={contact.name}
         />
-      </Label>
-
-      <Label htmlFor="numberPhone">
-        New number:
-        <input
-          type="tel"
-          name="phone"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        <TextField
+          margin="normal"
           required
-          value={newNumber}
-          onChange={onChangeNumber}
+          fullWidth
+          inputProps={{
+            inputMode: 'text',
+            pattern: String.raw`\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}`,
+          }}
+          name="phone"
+          label="Phone number"
+          type="phone"
+          id="phone"
+          defaultValue={contact.number}
         />
-      </Label>
-      <button type="submit">Save</button>
-      <button type="button" onClick={() => handlerEditionContact(false)}>
-        Cancel
-      </button>
-    </Form>
+        <Box
+          m={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          // sx={boxDefault}
+        >
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 2,
+              maxWidth: 240,
+            }}
+          >
+            Save contact
+          </Button>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 2,
+              maxWidth: 240,
+            }}
+            onClick={handlerClose}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </Box>
+    </Dialog>
   );
-};
-
-EditContact.propType = {
-  contact: PropTypes.exact({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    edit: PropTypes.bool,
-  }).isRequired,
-  handlerEditionContact: PropTypes.func.isRequired,
 };
 
 export default EditContact;

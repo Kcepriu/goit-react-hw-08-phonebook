@@ -10,7 +10,10 @@ const ContactProxy = ({ contact }) => {
   return (
     <>
       {!editingContact ? (
-        <Contact contact={contact} handlerEditionContact={setEditingContact} />
+        <Contact
+          contact={contact}
+          handlerEditionContact={() => setEditingContact(true)}
+        />
       ) : (
         <EditContact
           contact={contact}

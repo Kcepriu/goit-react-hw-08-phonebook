@@ -4,10 +4,13 @@ import ListContacts from 'components/ListContacts/ListContacts';
 import Filter from 'components/Filter/Filter';
 import Spinner from 'components/Spinner/Spinner';
 
-import { TitlePhonebook, TitleContacts, Container } from './Contacts.styled';
 import { fetchAllContacts } from 'reduxe/contacts/operation';
 import { useEffect } from 'react';
 import useContacts from 'hooks/useContacts';
+
+//MUI
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const Contacts = () => {
   const { contacts, isLoading, error } = useContacts();
@@ -18,25 +21,28 @@ const Contacts = () => {
     dispatch(fetchAllContacts());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (!error) alert('ERROR services');
-  // }, [error]);
-
   return (
-    <Container>
-      <TitlePhonebook>Phonebook</TitlePhonebook>
+    <Box
+      sx={{
+        padding: 2,
+      }}
+    >
+      <Typography variant="h3">Phonebook</Typography>
+
       <AddContact />
 
       {contacts.length > 0 && (
         <>
+          <Typography variant="h4">Contacts</Typography>
+
           <Filter />
-          <TitleContacts>Contacts</TitleContacts>
+
           <ListContacts />
         </>
       )}
 
       {isLoading && !error && <Spinner />}
-    </Container>
+    </Box>
   );
 };
 
