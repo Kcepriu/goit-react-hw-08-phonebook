@@ -39,9 +39,9 @@ const FilterInTable = () => {
         />
       </StyledTableCell>
 
-      <StyledTableCell align="left">-</StyledTableCell>
+      <StyledTableCell align="left"></StyledTableCell>
 
-      <StyledTableCell align="left">-</StyledTableCell>
+      <StyledTableCell align="left"></StyledTableCell>
     </StyledTableRow>
   );
 };
