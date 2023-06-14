@@ -20,22 +20,22 @@ To install Goose Track, follow these steps:
 2. Navigate to the project directory using cd githack-GooseTrack-app-backEnd.
 3. Install dependencies using npm install.
 4. Create .envfile and add your environment variables:
-   - DB_HOST
-   - PORT
-   - SECRET_KEY
-   - EMAIL_USER=
-   - EMAIL_PASS
-   - CLOUDNERY_API_NAME
-   - CLOUDNERY_API_KEY
-   - CLOUDNERY_API_SECRET
-   - CLOUDINARY_URL
-   - GOOGLE_CLIENT_ID
-   - GOOGLE_CLIENT_SECRET
-   - BASE_URL
-   - FRONTEND_URL
-   - REFRESH_SECRET_KEY
-   - ACCESS_SECRET_KEY
-   - JWT_RESET
+   - DB_HOST: your MongoDB connection string
+   - PORT: port of this program
+   - SECRET_KEY: secret key email service
+   - EMAIL_USER: user email service
+   - EMAIL_PASS: password email service
+   - CLOUDNERY_API_NAME: cloudnery api name
+   - CLOUDNERY_API_KEY: cloudnery api key
+   - CLOUDNERY_API_SECRET: cloudnery api secret
+   - CLOUDINARY_URL: cloudnery URL
+   - GOOGLE_CLIENT_ID: id google client
+   - GOOGLE_CLIENT_SECRET: secret string for signing google client
+   - BASE_URL: URL Front End part
+   - FRONTEND_URL: URL Front End reset password
+   - REFRESH_SECRET_KEY: secret string for signing refresh token
+   - ACCESS_SECRET_KEY: secret string for signing access token
+   - JWT_RESET: secret string for signing reset token
 5. Start the server using
 
 - $ npm run start:dev
